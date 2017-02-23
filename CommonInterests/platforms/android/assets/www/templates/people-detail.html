@@ -1,0 +1,19 @@
+﻿<ion-view view-title="{{people.name}}">
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-avatar item-icon-right">
+                <img class="full-image" ng-src="{{people.user_image}}"/>
+                <h2>{{people.name}}</h2>
+                <p>Met {{depuis(people.match_date)}}</p>
+                <div class="list card">
+                    <div class="item" ng-repeat="interest in interests">
+                        <p>{{interest}}</p>
+                    </div>
+                </div>
+                <ion-option-button class="button-assertive" ng-click="returnAndDelete(people)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

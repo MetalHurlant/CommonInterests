@@ -1,0 +1,15 @@
+{
+  "name": "geolocation-marker",
+  "_cacheHeaders": {
+    "ETag": "\"05c21e264c2e004fb302811f323b9226\"",
+    "Last-Modified": "Tue, 03 Nov 2015 12:44:42 GMT",
+    "Content-Length": "7740",
+    "Content-Type": "application/octet-stream",
+    "Content-Disposition": "attachment; filename=geolocation-marker.tgz"
+  },
+  "_release": "e-tag:05c21e264",
+  "_source": "https://github.com/ChadKillingsworth/geolocation-marker/releases/download/v2.0.2/geolocation-marker.tgz",
+  "_target": "*",
+  "_originalSource": "https://github.com/ChadKillingsworth/geolocation-marker/releases/download/v2.0.2/geolocation-marker.tgz",
+  "_direct": true
+}

@@ -1,0 +1,41 @@
+﻿/* Empty. Add your own CSS if you like */
+
+
+div.common-interest {
+    border: 1px solid white;
+    text-align: center;
+    background-color: midnightblue;
+    padding: 5px;
+}
+
+div.common-interest p.ng-binding {
+    color: white;
+}
+
+
+.padding {
+    background-color:lightsteelblue;
+}
+
+
+scroll {
+		  height: 100%;
+		}
+
+#map {
+		  width: 100%;
+		  height: 100%;
+}
+.account-img {
+    width: 50%;
+}
+.account-interest-delete {
+    width: 75px;
+}
+.account-interest {
+    margin-left:37px;
+    font-size:1.4em;
+}
+.tab-account {
+    text-align:center;
+}

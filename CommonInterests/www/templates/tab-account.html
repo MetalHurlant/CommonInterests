@@ -1,0 +1,13 @@
+<ion-view view-title="Account">
+    <ion-content class="tab-account">
+        <h1>{{me.name}}</h1>
+        <img class="account-img" ng-src="{{me.user_image}}" />
+        <h2>Mes centres d'inter&ecircts</h2>
+        <ion-list class="list card">
+            <ion-item class="" ng-repeat="interest in me.interests">
+                <h1 class="account-interest">{{interest}}</h1>
+                <ion-option-button class="button-assertive account-interest-delete" ng-click="remove(interest)">Delete</ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
