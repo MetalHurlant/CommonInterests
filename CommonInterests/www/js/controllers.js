@@ -1,30 +1,30 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function ($scope) { })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+.controller('ChatsCtrl', function ($scope, Chats) {
+    // With the new view caching in Ionic, Controllers are only called
+    // when they are recreated or on app start, instead of every page change.
+    // To listen for when this page is active (for example, to refresh data),
+    // listen for the $ionicView.enter event:
+    //
+    //$scope.$on('$ionicView.enter', function(e) {
+    //});
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+    $scope.chats = Chats.all();
+    $scope.remove = function (chat) {
+        Chats.remove(chat);
+    };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
+    $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function ($scope) {
+    $scope.settings = {
+        enableFriends: true
+    };
 })
 
 .controller('AccueilCtrl', function ($scope, Peoples, Account, $state, $rootScope) {
@@ -106,11 +106,13 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('MapsCtrl', function ($scope, $ionicLoading, $compile, $state, Peoples) {
+.controller('MapsCtrl', function ($scope, $ionicLoading, $compile, $state, Peoples, Account) {
     var allPeoples = Peoples.all();
+    var Me = Account.get();
     $scope.goToPeople = function (peopleID) {
         $state.go('tab.map-people-detail', { peopleID: peopleID })
     }
+
 
     /** VARIABLES **/
     var mapDiv = document.getElementById('map'); //div contenant la carte
@@ -143,7 +145,7 @@ angular.module('starter.controllers', [])
         });
     };
 
-    
+
     //Ajoute un marqueur sur la carte
     function addMarker(img, Buddy) {
         var marker = new google.maps.Marker({
@@ -177,8 +179,30 @@ angular.module('starter.controllers', [])
         }
     }
 
+    function howManyCommon(Buddy) {
+        var commonInterests = 0;
+        Buddy.interest.forEach(function (BInterest) {
+            Me.interest.forEach(function (MInterest) {
+                if (BInterest == MInterest) {
+                    commonInterests++;
+                }
+            })
+
+        });
+        return (commonInterests);
+    }
+
     function createMarker(Buddy) {
         var canvas = document.createElement("canvas");
+        var nb = howManyCommon(Buddy);
+        var marker = "img/marker.png";
+        if (nb > 2) {
+            marker = "img/markerGreen.png";
+        } else if (nb > 0) {
+            marker = "img/markerBlue.png";
+        } else {
+            marker = "img/markerRed.png";
+        };
         canvas.width = 50;
         canvas.height = 71;
         var context = canvas.getContext("2d");
@@ -189,10 +213,14 @@ angular.module('starter.controllers', [])
             context.globalCompositeOperation = "source-over";
             context.drawImage(image1, 7, 7, 35, 35);
             var image2 = new Image();
-            image2.src = "img/marker.png";
+            image2.src = marker;
             image2.onload = function () {
                 context.globalCompositeOperation = "source-over";
                 context.drawImage(image2, 0, 0, canvas.width, canvas.height);
+                context.font = "18px Arial";
+                context.fillStyle = "white";
+                context.textAlign = "center";
+                context.fillText(nb, 25, 60);
                 img = canvas.toDataURL('img/png', 1);
                 waitForElement(img, Buddy);
             }
@@ -203,7 +231,6 @@ angular.module('starter.controllers', [])
     /** CODE **/
     initMap();
     allPeoples.forEach(function (Buddy) {
-        console.log(Buddy);
         createMarker(Buddy);
     })
 
