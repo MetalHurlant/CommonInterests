@@ -69,6 +69,9 @@ angular.module('starter.services', [])
         },
         interests: function () {
             return account.interest;
+        },
+        addInterest: function (newInterest) {
+            account.interest.push(newInterest);
         }
     };
 })
@@ -119,7 +122,7 @@ angular.module('starter.services', [])
         interestCommon: []
     }, {
         id: 4,
-        name: 'Jérémy Tablet',
+        name: 'Jeremy Tablet',
         user_image: 'img/perry.png',
         latitude: '43.120094 ',
         longitude: '5.93693',

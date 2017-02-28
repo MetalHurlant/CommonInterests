@@ -9,5 +9,23 @@
                 <ion-option-button class="button-assertive account-interest-delete" ng-click="remove(interest)">Delete</ion-option-button>
             </ion-item>
         </ion-list>
+                       
+                   
+        <form ng-submit="addNewInterest()">
+            <div class="">
+                <label class="item item-input">
+                    <span class="input-label">Name</span>
+                    <input id="input" type="text" ng-model="inputs.value">
+                </label>
+            </div>
+        </form>
+
+        <!--<div class="item item-input-inset">
+            <label class="item item-input-wrapper">
+                <input type="text" placeholder="Placeholder 1" ng-model="inputs.value">
+            </label>
+            <button class="button"  ng-click="addInterest()">button</button>
+        </div>-->
+
     </ion-content>
 </ion-view>

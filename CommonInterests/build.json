@@ -1,0 +1,12 @@
+{
+  "android": {
+    "release": {
+      "keystore": "AndroidProject.keystore",
+      "storePassword":"azerty",
+      "alias": "CommonInterests",
+      "password": "azerty",
+      "keystoreType": ""
+    }
+  }
+}
+

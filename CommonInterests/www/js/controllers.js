@@ -1,32 +1,5 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function ($scope) { })
-
-.controller('ChatsCtrl', function ($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-        Chats.remove(chat);
-    };
-})
-
-.controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function ($scope) {
-    $scope.settings = {
-        enableFriends: true
-    };
-})
-
 .controller('AccueilCtrl', function ($scope, Peoples, Account, $state, $rootScope) {
     //chargement de tous les peoples contenus dans la "base de données"
 
@@ -152,11 +125,12 @@ angular.module('starter.controllers', [])
             position: new google.maps.LatLng(Buddy.latitude, Buddy.longitude),
             clickable: true,
             title: Buddy.name,
-            icon: img
+            icon: img,
+            animation: google.maps.Animation.DROP,
+            map: $scope.map
         });
 
-        marker.setAnimation(google.maps.Animation.DROP);
-        marker.setMap($scope.map);
+        markers.push(marker);
 
         var content = '<a ng-click="goToPeople(' + Buddy.id + ')" class="btn btn-default">' + Buddy.name + '</a>';
         var compiledContent = $compile(content)($scope)
@@ -226,12 +200,28 @@ angular.module('starter.controllers', [])
             }
         }
     };
-
+    
+    function deleteMarkers() {
+        markers.forEach(function (marker) {
+            marker.setMap(null);
+        })
+        markers = [];
+    };
 
     /** CODE **/
     initMap();
-    allPeoples.forEach(function (Buddy) {
+    var markers = [];
+   /* allPeoples.forEach(function (Buddy) {
         createMarker(Buddy);
+    })*/
+    $scope.$on("$ionicView.beforeEnter", function (event, data) {
+        allPeoples.forEach(function (Buddy) {
+            createMarker(Buddy);
+        })
+    });
+    $scope.$on("$ionicView.leave", function (event, data) {
+        console.log("ici");
+        deleteMarkers();
     })
 
     /** EVENT LISTENER **/
@@ -251,16 +241,31 @@ angular.module('starter.controllers', [])
 .controller('AccountCtrl', function ($scope, Account) {
     $scope.me = Account.get();
 
-    $scope.remove = function (interest) {
-        Account.remove(interest);
-        $scope.me.interests.splice($scope.me.interests.indexOf(interest), 1);
-    }
     $scope.me = Account.get();
     $scope.me.interests = Account.interests();
 
     $scope.remove = function (interest) {
         Account.remove(interest);
     }
+    $scope.inputs = [{id: 1}];
+    $scope.addNewInterest = function () {
+        $scope.me = Account.get();
+        var already = false;
+        var InputInterest = $scope.inputs.value;
+        //var html = document.getElementById('input');
+        $scope.me.interest.forEach(function (inter) {
+            if (inter == InputInterest) {
+                already = true;
+            } else {
+            }
+        })
+        if (!already) {
+            Account.addInterest(InputInterest);
+        }
+        //html.setAttribut("value", " ");
+        $scope.inputs = [{ id: 1 }];
+    }
+
 })
 
 
