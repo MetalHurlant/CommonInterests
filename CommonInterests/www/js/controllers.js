@@ -50,6 +50,7 @@ angular.module('starter.controllers', [])
         $scope.remove = function (people) {
             Peoples.remove(people);
             commonPeoples.splice(commonPeoples.indexOf(people), 1);
+            Peoples.save();
         }
     });
 })
@@ -74,6 +75,7 @@ angular.module('starter.controllers', [])
     //depuis le people-detail.html (on passe par le $rootScope pour le faire) avec une redirection de la vue dans le HOME.
     $scope.returnAndDelete = function (people) {
         Peoples.remove(people);
+        Peoples.save();
         $scope.peoples.splice($scope.peoples.indexOf(people), 1);
         $state.go('tab.accueil', { null: null });
     }
@@ -246,6 +248,7 @@ angular.module('starter.controllers', [])
 
     $scope.remove = function (interest) {
         Account.remove(interest);
+        Account.save();
     }
     $scope.inputs = [{id: 1}];
     $scope.addNewInterest = function () {
@@ -261,6 +264,7 @@ angular.module('starter.controllers', [])
         })
         if (!already) {
             Account.addInterest(InputInterest);
+            Account.save();
         }
         //html.setAttribut("value", " ");
         $scope.inputs = [{ id: 1 }];
