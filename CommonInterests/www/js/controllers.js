@@ -259,7 +259,6 @@ angular.module('starter.controllers', [])
         $scope.me.interest.forEach(function (inter) {
             if (inter == InputInterest) {
                 already = true;
-            } else {
             }
         })
         if (!already) {
